@@ -6,6 +6,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(141, 34, 170); /* Old browsers */
+  background: -moz-linear-gradient(
+    left,
+    rgba(141, 34, 170, 1) 0%,
+    rgba(32, 124, 202, 1) 81%,
+    rgba(41, 137, 216, 1) 93%,
+    rgba(41, 137, 216, 1) 93%,
+    rgba(0, 130, 229, 1) 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    left,
+    rgba(141, 34, 170, 1) 0%,
+    rgba(32, 124, 202, 1) 81%,
+    rgba(41, 137, 216, 1) 93%,
+    rgba(41, 137, 216, 1) 93%,
+    rgba(0, 130, 229, 1) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to right,
+    rgba(141, 34, 170, 1) 0%,
+    rgba(32, 124, 202, 1) 81%,
+    rgba(41, 137, 216, 1) 93%,
+    rgba(41, 137, 216, 1) 93%,
+    rgba(0, 130, 229, 1) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 code {
