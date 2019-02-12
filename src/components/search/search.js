@@ -5,29 +5,39 @@ import TextField from "@material-ui/core/TextField";
 class Search extends Component {
   state = {
     results: [],
-    searchItem: ""
+    searchItem: "",
+    filteredResults: []
+  };
+
+  componentDidMount() {
+    axios
+      .get("https://api.openaq.org/v1/measurements?country=GB&limit=100")
+      .then(res => {
+        this.setState({ results: res.data.results });
+      })
+      .catch(err => console.log(err));
+  }
+
+  findMatches = () => {
+    let wordToMatch = this.state.searchItem;
+    let results = this.state.results;
+
+    let filteredResults = results.filter(place => {
+      // here we neeed to figure out if the city of state matches what was searced
+
+      const regex = new RegExp(wordToMatch, "gi");
+      return place.city.match(regex);
+    });
+    this.setState({ filteredResults });
   };
 
   handleChange = e => {
     const val = e.target.value;
     const newVal = val.charAt(0).toUpperCase() + val.slice(1);
 
-    if (val === "") {
-      this.setState({ results: [] });
-    } else {
-      this.setState({ [e.target.name]: newVal }, () => {
-        axios
-          .get(
-            `https://api.openaq.org/v1/measurements?country=GB&limit=10&city=${newVal}`
-          )
-          .then(res => {
-            this.setState({ results: res.data.results });
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      });
-    }
+    this.setState({ [e.target.name]: newVal });
+
+    this.findMatches();
   };
 
   render() {
