@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
+import classes from "./search.module.css";
 
 class Search extends Component {
   state = {
@@ -35,12 +36,22 @@ class Search extends Component {
     const val = e.target.value;
     const newVal = val.charAt(0).toUpperCase() + val.slice(1);
 
-    this.setState({ [e.target.name]: newVal });
-
-    this.findMatches();
+    this.setState({ [e.target.name]: newVal }, () => {
+      this.findMatches();
+    });
   };
 
   render() {
+    let matchArray;
+
+    this.state.searchItem === ""
+      ? (matchArray = null)
+      : (matchArray = this.state.filteredResults.slice(0, 5).map(place => (
+          <li key={place.coordinates.latitude}>
+            <span>{place.city}</span>
+          </li>
+        )));
+
     return (
       <div>
         <h1>Compare your Air</h1>
@@ -53,6 +64,7 @@ class Search extends Component {
           onChange={this.handleChange}
           name="searchItem"
         />
+        <div className={classes.suggestions}>{matchArray}</div>
       </div>
     );
   }

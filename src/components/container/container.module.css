@@ -1,0 +1,7 @@
+.container {
+  text-align: center;
+  display: inline-block;
+
+  left: 50%;
+  right: 50%;
+}
