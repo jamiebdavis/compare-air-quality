@@ -1,13 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
-import classes from "./search.module.css";
+
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
 class Search extends Component {
   state = {
     results: [],
     searchItem: "",
-    filteredResults: []
+    filteredResults: [],
+    imageCardOne: {
+      city: "",
+      location: "",
+      parameter: "",
+      unit: "",
+      value: ""
+    },
+    imageCardTwo: {}
   };
 
   componentDidMount() {
@@ -41,15 +51,32 @@ class Search extends Component {
     });
   };
 
+  handleClick = e => {
+    console.log(e.target);
+    /*     this.setState({
+      imageCardOne: {
+        city: "",
+        location: "",
+        parameter: "",
+        unit: "",
+        value: ""
+      }
+    }); */
+  };
+
   render() {
     let matchArray;
 
     this.state.searchItem === ""
       ? (matchArray = null)
       : (matchArray = this.state.filteredResults.slice(0, 5).map(place => (
-          <li key={place.coordinates.latitude}>
-            <span>{place.city}</span>
-          </li>
+          <div key={place.coordinates.latitude}>
+            <br />
+            <Paper elevation={1} onClick={this.handleClick}>
+              <Typography component="p">{place.city}</Typography>
+            </Paper>
+            <br />
+          </div>
         )));
 
     return (
@@ -64,7 +91,7 @@ class Search extends Component {
           onChange={this.handleChange}
           name="searchItem"
         />
-        <div className={classes.suggestions}>{matchArray}</div>
+        <div>{matchArray}</div>
       </div>
     );
   }
